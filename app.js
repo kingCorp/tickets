@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -8,11 +9,11 @@ const app = express();
 app.use(cors());
 
 // Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../event-ticket/build')));
+app.use(express.static(path.resolve(__dirname, './event-ticket/build')));
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../event-ticket/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, './event-ticket/build', 'index.html'));
 });
 
 // define a simple route
