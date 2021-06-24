@@ -78,7 +78,8 @@ const Events = (props) => {
   if (status === "loading") {
     return <Spinner />;
   }
-  console.log(data);
+  console.log('events::',data);
+  
   return (
     <div className={classes.root}>
       <Layout>

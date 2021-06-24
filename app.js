@@ -8,8 +8,16 @@ const app = express();
 
 app.use(cors());
 
-// Have Node serve the files for our built React app
+// // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, './event-ticket/build')));
+
+//import routes
+const event = require('./src/routes/event');
+const ticket = require('./src/routes/ticket');
+
+//middleware routes handling requests
+app.use('/api/event', event);
+app.use('/api/ticket', ticket);
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
@@ -23,10 +31,6 @@ app.get('/', (req, res) => {
     "message": "Welcome to Ticket application. Create tickets quickly. Organize and keep track of all your tickets."
   });
 });
-
-//import routes
-const event = require('./src/routes/event');
-const ticket = require('./src/routes/ticket');
 
 //db connect
 require('./src/middleware/db');
@@ -52,11 +56,6 @@ app.use((req, res, next) => {
   }
   next();
 });
-
-
-//middleware routes handling requests
-app.use('/api/event', event);
-app.use('/api/ticket', ticket);
 
 //handling errors
 app.use((req, res, next) => {
