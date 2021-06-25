@@ -5,7 +5,7 @@ const Ticket = require('../models/ticket');
 
 //create ticket
 exports.createTicket = (req, res, next) => {
-  if (req.body.passcode !== 'agudareal') {
+  if (req.body.code !== 'agudareal') {
     return res.status(200).json({
       hasError: true,
       message: "Incorrect passcode cannot create ticket"
@@ -78,7 +78,7 @@ exports.getTickets = (req, res, next) => {
 exports.updateTicket = (req, res, next) => {
   const id = req.params.id;
 
-  if (req.body.passcode != 'agudareal') {
+  if (req.body.code != 'agudareal') {
     return res.status(200).json({
       hasError: true,
       message: "Incorrect passcode cannot create ticket"
