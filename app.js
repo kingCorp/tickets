@@ -8,7 +8,18 @@ const app = express();
 
 app.use(cors());
 
-// // Have Node serve the files for our built React app
+//db connect
+require('./src/middleware/db');
+
+//logs the server
+app.use(morgan('dev'));
+//parse url and json request
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+app.use(bodyParser.json());
+
+// Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, './event-ticket/build')));
 
 //import routes
@@ -31,17 +42,6 @@ app.get('/', (req, res) => {
     "message": "Welcome to Ticket application. Create tickets quickly. Organize and keep track of all your tickets."
   });
 });
-
-//db connect
-require('./src/middleware/db');
-
-//logs the server
-app.use(morgan('dev'));
-//parse url and json request
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
-app.use(bodyParser.json());
 
 //allow cross origin 
 app.use((req, res, next) => {
